@@ -1,17 +1,46 @@
-@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap");
 
 .logo {
-    font-family: 'Amatic SC', sans-serif;
-    font-size: 40px;
-    font-weight: 500;
-    letter-spacing: 5px;
+  font-family: "Amatic SC", sans-serif;
+  font-size: 40px;
+  font-weight: 500;
+  letter-spacing: 5px;
 }
 
 .NavBar {
-    background-color: #fff;
-  }
+  background-color: #fff;
+}
 
-  .NavLink {
-    color: #000;
-    margin: 0 1.5rem;
+.NavLink {
+  margin: 0 1.5rem;
+}
+
+.NavLink:hover {
+  color: #8a8989;
+  text-decoration: none;
+}
+
+a {
+  color: #000;
+  transition: color ease-in-out 0.3s;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:hover i {
+  color: #8a8989;
+  transition: color ease-in-out 0.3s;
+}
+
+i {
+  font-size: 1.6rem;
+  padding: 7px;
+  vertical-align: middle;
+}
+
+i:hover {
+  cursor: pointer;
+  transition: color ease-in-out 0.3s;
 }

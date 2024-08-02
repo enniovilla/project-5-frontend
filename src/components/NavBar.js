@@ -16,7 +16,7 @@ const NavBar = () => {
           <i class="fa-solid fa-house fa-xl"></i> Home
           </NavLink>
           <NavLink className={styles.NavLink} to="/signin">
-          <i class="fa-solid fa-right-to-bracket fa-xl"></i> Log in
+          <i class="fa-solid fa-right-to-bracket fa-xl"></i> Sign in
           </NavLink>
           <NavLink className={styles.NavLink} to="/signup">
           <i class="fa-solid fa-user-pen fa-xl"></i> Sign up
