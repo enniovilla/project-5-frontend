@@ -11,7 +11,7 @@
     background-color: #fff;
   }
 
-.NavLink {
-    color: #000 !important; 
-    margin: 0 1.2rem;
+  .NavLink {
+    color: #000;
+    margin: 0 1.5rem;
 }
