@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap');
+
+.logo {
+    font-family: 'Amatic SC', sans-serif;
+    font-size: 40px;
+    font-weight: 500;
+    letter-spacing: 5px;
+}
+
+.NavBar {
+    background-color: #fff;
+  }
+
+.NavLink {
+    color: #000 !important; 
+    margin: 0 1.2rem;
+}
