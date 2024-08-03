@@ -59,6 +59,38 @@ const Event = (props) => {
     }
   };
 
+  const handleAttend = async () => {
+    try {
+      const { data } = await axiosRes.post("/attendances/", { event: id });
+      setEvents((prevEvents) => ({
+        ...prevEvents,
+        results: prevEvents.results.map((event) => {
+          return event.id === id
+            ? { ...event, attendance_count: event.attendance_count + 1, attendance_id: data.id }
+            : event;
+        }),
+      }));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleUnattend = async () => {
+    try {
+      await axiosRes.delete(`/attendances/${attendance_id}/`);
+      setEvents((prevEvents) => ({
+        ...prevEvents,
+        results: prevEvents.results.map((event) => {
+          return event.id === id
+            ? { ...event, attendance_count: event.attendance_count - 1, attendance_id: null }
+            : event;
+        }),
+      }));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <Card className={styles.Event}>
       <Card.Body>
@@ -134,7 +166,6 @@ const Event = (props) => {
             }
           >
             <Button
-              variant="secondary"
               disabled
               className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Color}`}
             >
@@ -143,14 +174,14 @@ const Event = (props) => {
           </OverlayTrigger>
         ) : attendance_id ? (
           <Button
-            variant="success"
-            className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Color}`}
+            onClick={handleUnattend}
+            className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Color} ${btnStyles.Attending}`}
           >
             Attending
           </Button>
         ) : currentUser ? (
           <Button
-            variant="outline-primary"
+            onClick={handleAttend}
             className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Color}`}
           >
             Attend
