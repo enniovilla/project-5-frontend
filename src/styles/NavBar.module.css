@@ -19,28 +19,3 @@
   color: #8a8989;
   text-decoration: none;
 }
-
-a {
-  color: #000;
-  transition: color ease-in-out 0.3s;
-}
-
-a:hover {
-  text-decoration: none;
-}
-
-a:hover i {
-  color: #8a8989;
-  transition: color ease-in-out 0.3s;
-}
-
-i {
-  font-size: 1.6rem;
-  padding: 7px;
-  vertical-align: middle;
-}
-
-i:hover {
-  cursor: pointer;
-  transition: color ease-in-out 0.3s;
-}
