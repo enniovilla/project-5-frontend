@@ -9,7 +9,7 @@ import styles from "../../styles/EventCreateEditForm.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import Asset from "../../components/Asset";
-import { Image } from "react-bootstrap";
+import { Alert, Image } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 
@@ -18,10 +18,10 @@ function EventCreateForm() {
   const [postData, setPostData] = useState({
     title: "",
     description: "",
-    image: "",
+    event_image: "",
     event_date: "",
   });
-  const { title, description, image, event_date } = postData;
+  const { title, description, event_image, event_date } = postData;
   const imageInput = useRef(null);
   const history = useHistory();
 
@@ -34,10 +34,10 @@ function EventCreateForm() {
 
   const handleChangeImage = (event) => {
     if (event.target.files.length) {
-      URL.revokeObjectURL(image);
+      URL.revokeObjectURL(event_image);
       setPostData({
         ...postData,
-        image: URL.createObjectURL(event.target.files[0]),
+        event_image: URL.createObjectURL(event.target.files[0]),
       });
     }
   };
@@ -48,7 +48,7 @@ function EventCreateForm() {
 
     formData.append("title", title);
     formData.append("description", description);
-    formData.append("image", imageInput.current.files[0]);
+    formData.append("event_image", imageInput.current.files[0]);
     formData.append("event_date", event_date);
 
     try {
@@ -74,6 +74,11 @@ function EventCreateForm() {
           onChange={handleChange}
         />
       </Form.Group>
+      {errors?.title?.map((message, idx) => (
+        <Alert variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
 
       <Form.Group>
         <Form.Label>Description</Form.Label>
@@ -86,6 +91,11 @@ function EventCreateForm() {
           onChange={handleChange}
         />
       </Form.Group>
+      {errors?.description?.map((message, idx) => (
+        <Alert variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
 
       <Form.Group>
         <Form.Label>Event Date and Time</Form.Label>
@@ -97,6 +107,11 @@ function EventCreateForm() {
           onChange={handleChange}
         />
       </Form.Group>
+      {errors?.event_date?.map((message, idx) => (
+        <Alert variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
 
       <Button
         className={`${btnStyles.Button} ${btnStyles.Color}`}
@@ -124,12 +139,12 @@ function EventCreateForm() {
                 className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}
               >
                 <Form.Group className="text-center">
-                  {image ? (
+                  {event_image ? (
                     <>
                       <figure>
                         <Image
                           className={appStyles.Image}
-                          src={image}
+                          src={event_image}
                           rounded
                         />
                       </figure>
@@ -164,6 +179,11 @@ function EventCreateForm() {
                     />
                   </Form.Group>
                 </Form.Group>
+                {errors?.event_image?.map((message, idx) => (
+                  <Alert variant="warning" key={idx}>
+                    {message}
+                  </Alert>
+                ))}
 
                 <div className="d-md-none">{textFields}</div>
               </Container>
