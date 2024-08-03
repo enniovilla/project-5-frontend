@@ -5,6 +5,7 @@ import { Card, Media, OverlayTrigger, Tooltip, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Avatar from "../../components/Avatar";
 import btnStyles from "../../styles/Button.module.css";
+import { axiosRes } from "../../api/axiosDefaults";
 
 const Event = (props) => {
   const {
@@ -20,10 +21,43 @@ const Event = (props) => {
     description,
     event_image,
     eventPage,
+    setEvents,
   } = props;
 
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
+
+  const handleFavorite = async () => {
+    try {
+      const { data } = await axiosRes.post("/favorites/", { event: id });
+      setEvents((prevEvents) => ({
+        ...prevEvents,
+        results: prevEvents.results.map((event) => {
+          return event.id === id
+            ? { ...event, favorites_count: event.favorites_count + 1, favorite_id: data.id }
+            : event;
+        }),
+      }));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleUnfavorite = async () => {
+    try {
+      await axiosRes.delete(`/favorites/${favorite_id}/`);
+      setEvents((prevEvents) => ({
+        ...prevEvents,
+        results: prevEvents.results.map((event) => {
+          return event.id === id
+            ? { ...event, favorites_count: event.favorites_count - 1, favorite_id: null }
+            : event;
+        }),
+      }));
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <Card className={styles.Event}>
@@ -41,11 +75,11 @@ const Event = (props) => {
                 <i className="fa-regular fa-star fa-xl" />
               </OverlayTrigger>
             ) : favorite_id ? (
-              <span onClick={() => {}}>
-                <i className={`fa-regular fa-star fa-xl ${styles.Star}`} />
+              <span onClick={handleUnfavorite}>
+                <i className={`fa-solid fa-star fa-xl ${styles.Star}`} />
               </span>
             ) : currentUser ? (
-              <span onClick={() => {}}>
+              <span onClick={handleFavorite}>
                 <i
                   className={`fa-regular fa-star fa-xl ${styles.StarOutline}`}
                 />
