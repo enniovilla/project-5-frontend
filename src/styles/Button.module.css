@@ -32,3 +32,21 @@
 .Button:focus {
   background-color: #a9a9a9;
 }
+
+.Attending {
+  background-color: black;
+  color: white;
+}
+
+.Attending:hover {
+  background-color: #333; /* Slightly lighter black for hover effect */
+  cursor: pointer;
+}
+
+.Attending:active {
+  background-color: #111; /* Even darker black for active effect */
+}
+
+.Attending:focus {
+  background-color: #333;
+}
