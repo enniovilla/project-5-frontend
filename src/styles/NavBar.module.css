@@ -12,7 +12,10 @@
 }
 
 .NavLink {
+  color: #000 !important;
   margin: 0 1.5rem;
+  display: flex;
+  align-items: center;
 }
 
 .NavLink:hover {

@@ -81,7 +81,7 @@ const NavBar = () => {
         aria-controls="basic-navbar-nav"
       />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className=" ml-auto text-center">
+        <Nav className="ml-auto text-center">
           <NavLink className={styles.NavLink} to="/">
             <i class="fa-solid fa-house fa-xl"></i>Home
           </NavLink>
