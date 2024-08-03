@@ -27,28 +27,28 @@ const NavBar = () => {
 
   const loggedInIcons = (
     <>
-      <NavLink className={styles.NavLink} to="/feed">
+      <NavLink className={`${styles.NavLink} mt-1 mb-1 mt-md-0 mb-md-0`} to="/feed">
         <i class="fa-solid fa-users fa-xl"></i>Feed
       </NavLink>
-      <NavLink className={styles.NavLink} to="/events/create">
+      <NavLink className={`${styles.NavLink} mt-1 mb-1 mt-md-0 mb-md-0`} to="/events/create">
         <i class="fa-solid fa-pen-to-square fa-xl"></i>Create Event
       </NavLink>
-      <NavLink className={styles.NavLink} to="/my_events">
+      <NavLink className={`${styles.NavLink} mt-1 mb-1 mt-md-0 mb-md-0`} to="/my_events">
         <i class="fa-solid fa-calendar fa-xl"></i>My Events
       </NavLink>
-      <NavLink className={styles.NavLink} to="/my_attendances">
+      <NavLink className={`${styles.NavLink} mt-1 mb-1 mt-md-0 mb-md-0`} to="/my_attendances">
         <i class="fa-solid fa-clipboard-user fa-xl"></i>My Attendances
       </NavLink>
-      <NavLink className={styles.NavLink} to="/favorites">
+      <NavLink className={`${styles.NavLink} mt-1 mb-1 mt-md-0 mb-md-0`} to="/favorites">
         <i class="fa-solid fa-star fa-xl"></i>Favorites
       </NavLink>
       <NavLink
-        className={styles.NavLink}
+        className={`${styles.NavLink} mt-1 mb-1 mt-md-0 mb-md-0`}
         to={`/profiles/${currentUser?.profile_id}`}
       >
         <Avatar src={currentUser?.profile_image} text="Profile" height={40} />
       </NavLink>
-      <Nav.Link className={styles.NavLink} to="/" onClick={handleSignOut}>
+      <Nav.Link className={`${styles.NavLink} mt-1 mb-1 mt-md-0 mb-md-0`} to="/" onClick={handleSignOut}>
         <i class="fa-solid fa-right-to-bracket fa-xl"></i>Sign out
       </Nav.Link>
     </>
@@ -56,10 +56,10 @@ const NavBar = () => {
 
   const loggedOutIcons = (
     <>
-      <NavLink className={styles.NavLink} to="/signin">
+      <NavLink className={`${styles.NavLink} mt-1 mb-1 mt-md-0 mb-md-0`} to="/signin">
         <i class="fa-solid fa-right-to-bracket fa-xl"></i>Sign in
       </NavLink>
-      <NavLink className={styles.NavLink} to="/signup">
+      <NavLink className={`${styles.NavLink} mt-1 mb-1 mt-md-0 mb-md-0`} to="/signup">
         <i class="fa-solid fa-user-pen fa-xl"></i>Sign up
       </NavLink>
     </>
@@ -81,8 +81,8 @@ const NavBar = () => {
         aria-controls="basic-navbar-nav"
       />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="ml-auto text-center">
-          <NavLink className={styles.NavLink} to="/">
+        <Nav className=" ml-auto text-center">
+          <NavLink className={`${styles.NavLink} mt-1 mb-1 mt-md-0 mb-md-0`} to="/">
             <i class="fa-solid fa-house fa-xl"></i>Home
           </NavLink>
           {currentUser ? loggedInIcons : loggedOutIcons}
