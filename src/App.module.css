@@ -43,3 +43,9 @@ i:hover {
   border-radius: 10px;
   border: 1px solid #dadadf;
 }
+
+.Image {
+  max-height: 40vh;
+  max-width: 100%;
+  object-fit: contain;
+}
