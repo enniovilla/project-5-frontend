@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
-import { Form, Button, Col, Row, Container } from "react-bootstrap";
+import { Form, Button, Col, Row, Container, Alert } from "react-bootstrap";
 
 import styles from "../../styles/SignInUpForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
@@ -14,6 +14,8 @@ const SignInForm = () => {
   });
   const { username, password } = signInData;
 
+  const [errors, setErrors] = useState({});
+
   const history = useHistory();
 
   const handleSubmit = async (event) => {
@@ -22,6 +24,7 @@ const SignInForm = () => {
       await axios.post("/dj-rest-auth/login/", signInData);
       history.push("/");
     } catch (err) {
+      setErrors(err.response?.data);
     }
   };
 
@@ -49,6 +52,11 @@ const SignInForm = () => {
                 onChange={handleChange}
               />
             </Form.Group>
+            {errors.username?.map((message, idx) => (
+              <Alert key={idx} variant="warning">
+                {message}
+              </Alert>
+            ))}
 
             <Form.Group controlId="password">
               <Form.Label className="d-none">Password</Form.Label>
@@ -61,6 +69,11 @@ const SignInForm = () => {
                 onChange={handleChange}
               />
             </Form.Group>
+            {errors.password?.map((message, idx) => (
+              <Alert key={idx} variant="warning">
+                {message}
+              </Alert>
+            ))}
 
             <Button
               className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Color}`}
@@ -68,6 +81,11 @@ const SignInForm = () => {
             >
               Sign in
             </Button>
+            {errors.non_field_errors?.map((message, idx) => (
+              <Alert key={idx} variant="warning" className="mt-3">
+                {message}
+              </Alert>
+            ))}
           </Form>
         </Container>
 
