@@ -167,7 +167,7 @@ const Event = (props) => {
           >
             <Button
               disabled
-              className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Color}`}
+              className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Color} ${btnStyles.AttendingDeactivated}`}
             >
               Attend
             </Button>

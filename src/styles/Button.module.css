@@ -45,3 +45,9 @@
 .Attending:focus {
   background-color: #000;
 }
+
+.AttendingDeactivated {
+  background-color: lightgray !important;
+  color: #000 !important;
+  border-color: transparent !important;
+}
