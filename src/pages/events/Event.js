@@ -181,7 +181,7 @@ const Event = (props) => {
             </Link>
           </div>
           <div className="d-flex align-items-center">
-          <i class="fa-solid fa-calendar fa-xl" />
+          <i class="fa-solid fa-calendar-days fa-xl" />
             {event_date}
             <i class="fa-solid fa-users fa-xl ml-3" />
             {attendance_count}
