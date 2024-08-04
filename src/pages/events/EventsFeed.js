@@ -16,6 +16,7 @@ import { fetchMoreData } from "../../utils/utils";
 import InfiniteScroll from "react-infinite-scroll-component";
 import PopularEvents from "./PopularEvents";
 import PopularProfiles from "../profiles/PopularProfiles";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
 function EventsFeed({ message, filter = "" }) {
   const [events, setEvents] = useState({ results: [] });
@@ -23,6 +24,8 @@ function EventsFeed({ message, filter = "" }) {
   const { pathname } = useLocation();
 
   const [query, setQuery] = useState("");
+
+  const currentUser = useCurrentUser();
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -44,7 +47,7 @@ function EventsFeed({ message, filter = "" }) {
     return () => {
       clearTimeout(timer);
     };
-  }, [filter, query, pathname]);
+  }, [filter, query, pathname, currentUser]);
 
   return (
     <Row className="h-100">
