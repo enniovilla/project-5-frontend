@@ -15,11 +15,13 @@ function MyEvents({ message, filter = "" }) {
   const [events, setEvents] = useState({ results: [] });
   const [hasLoaded, setHasLoaded] = useState(false);
   const { pathname } = useLocation();
-
+  const [query, setQuery] = useState("");
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const { data } = await axiosReq.get(`/events/?${filter}`);
+        const { data } = await axiosReq.get(
+          `/events/?${filter}search=${query}`
+        );
         setEvents(data);
         setHasLoaded(true);
       } catch (err) {
@@ -28,12 +30,31 @@ function MyEvents({ message, filter = "" }) {
     };
 
     setHasLoaded(false);
-    fetchEvents();
-  }, [filter, pathname]);
+    const timer = setTimeout(() => {
+      fetchEvents();
+    }, 1000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [filter, query, pathname]);
 
   return (
     <Row className="h-100 d-flex justify-content-center align-items-center">
       <Col className="py-2 p-0 p-lg-2" lg={8}>
+        <i class={`fa-solid fa-magnifying-glass ${styles.SearchIcon}`} />
+        <Form
+          className={styles.SearchBar}
+          onSubmit={(event) => event.preventDefault()}
+        >
+          <Form.Control
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            type="text"
+            className="mr-sm-2"
+            placeholder="Search events"
+          />
+        </Form>
         {hasLoaded ? (
           <>
             {events.results.length ? (
@@ -41,13 +62,17 @@ function MyEvents({ message, filter = "" }) {
                 <Event key={event.id} {...event} setEvents={setEvents} />
               ))
             ) : (
-              <Container className={`d-flex flex-column justify-content-center align-items-center ${appStyles.Content}`}>
+              <Container
+                className={`d-flex flex-column justify-content-center align-items-center ${appStyles.Content}`}
+              >
                 <Asset src={NoResults} message={message} />
               </Container>
             )}
           </>
         ) : (
-          <Container className={`d-flex flex-column justify-content-center align-items-center ${appStyles.Content}`}>
+          <Container
+            className={`d-flex flex-column justify-content-center align-items-center ${appStyles.Content}`}
+          >
             <Asset spinner />
           </Container>
         )}
