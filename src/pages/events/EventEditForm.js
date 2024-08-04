@@ -30,12 +30,14 @@ function EventEditForm() {
         const { data } = await axiosReq.get(`/events/${id}/`);
         const { title, description, event_image, event_date, is_owner } = data;
         if (is_owner) {
-          const formattedDate = event_date ? new Date(event_date).toISOString().slice(0, 16) : '';
-          setPostData({ 
-            title: title || "", 
-            description: description || "", 
-            event_image: event_image || "", 
-            event_date: formattedDate 
+          const formattedDate = event_date
+            ? new Date(event_date).toISOString().slice(0, 16)
+            : "";
+          setPostData({
+            title: title || "",
+            description: description || "",
+            event_image: event_image || "",
+            event_date: formattedDate,
           });
         } else {
           history.push("/");
@@ -78,7 +80,7 @@ function EventEditForm() {
 
     try {
       await axiosReq.put(`/events/${id}/`, formData);
-      history.push(`/events/${id}`);
+      history.push(`/events/${id}?success=true`);
     } catch (err) {
       console.log(err);
       if (err.response?.status !== 401) {
@@ -164,21 +166,21 @@ function EventEditForm() {
                 className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}
               >
                 <Form.Group className="text-center">
-                      <figure>
-                        <Image
-                          className={appStyles.Image}
-                          src={event_image}
-                          rounded
-                        />
-                      </figure>
-                      <div>
-                        <Form.Label
-                          className={`${btnStyles.Button} ${btnStyles.Color}`}
-                          htmlFor="image-upload"
-                        >
-                          Change the image
-                        </Form.Label>
-                      </div>
+                  <figure>
+                    <Image
+                      className={appStyles.Image}
+                      src={event_image}
+                      rounded
+                    />
+                  </figure>
+                  <div>
+                    <Form.Label
+                      className={`${btnStyles.Button} ${btnStyles.Color}`}
+                      htmlFor="image-upload"
+                    >
+                      Change the image
+                    </Form.Label>
+                  </div>
 
                   <Form.Group controlId="image-upload" className="d-none">
                     <Form.Control
