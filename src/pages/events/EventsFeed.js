@@ -14,6 +14,7 @@ import Asset from "../../components/Asset";
 import NoResults from "../../assets/no-results.png";
 import { fetchMoreData } from "../../utils/utils";
 import InfiniteScroll from "react-infinite-scroll-component";
+import PopularEvents from "../profiles/PopularEvents";
 
 function EventsFeed({ message, filter = "" }) {
   const [events, setEvents] = useState({ results: [] });
@@ -48,7 +49,6 @@ function EventsFeed({ message, filter = "" }) {
   return (
     <Row className="h-100">
       <Col className="py-2 p-0 p-lg-2" lg={8}>
-        <p>Popular profiles mobile</p>
         <i class={`fa-solid fa-magnifying-glass ${styles.SearchIcon}`} />
         <Form
           className={styles.SearchBar}
@@ -87,7 +87,7 @@ function EventsFeed({ message, filter = "" }) {
         )}
       </Col>
       <Col md={4} className="d-none d-lg-block p-0 p-lg-2">
-        <p>Popular profiles for desktop</p>
+        <PopularEvents />
       </Col>
     </Row>
   );
