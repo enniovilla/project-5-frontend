@@ -1,16 +1,14 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-import Upload from "../../assets/upload.png";
 import styles from "../../styles/EventCreateEditForm.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
-import Asset from "../../components/Asset";
 import { Alert, Image } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 
 function EventEditForm() {
@@ -24,6 +22,21 @@ function EventEditForm() {
   const { title, description, event_image, event_date } = postData;
   const imageInput = useRef(null);
   const history = useHistory();
+  const { id } = useParams();
+
+  useEffect(() => {
+    const handleMount = async () => {
+      try {
+        const { data } = await axiosReq.get(`/events/${id}/`);
+        const { title, content, image, is_owner } = data;
+        is_owner ? setPostData({ title, content, image }) : history.push("/");
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    handleMount();
+  }, [history, id]);
 
   const handleChange = (event) => {
     setPostData({
@@ -48,12 +61,14 @@ function EventEditForm() {
 
     formData.append("title", title);
     formData.append("description", description);
-    formData.append("event_image", imageInput.current.files[0]);
+    if (imageInput?.current?.files[0]) {
+      formData.append("event_image", imageInput.current.files[0]);
+    }
     formData.append("event_date", event_date);
 
     try {
-      const { data } = await axiosReq.post("/events/", formData);
-      history.push(`/events/${data.id}`);
+      await axiosReq.put(`/events/${id}/`, formData);
+      history.push(`/events/${id}`);
     } catch (err) {
       console.log(err);
       if (err.response?.status !== 401) {
@@ -131,7 +146,7 @@ function EventEditForm() {
   return (
     <Row className={`justify-content-center ${styles.Row}`}>
       <Col className="my-auto py-2 p-md-2" sm={12}>
-        <h1 className={styles.Header}>edit an event</h1>
+        <h1 className={styles.Header}>edit your event</h1>
         <Form onSubmit={handleSubmit}>
           <Row>
             <Col className="mx-3 py-2 p-0 p-md-2" md={6} lg={7}>
@@ -139,8 +154,6 @@ function EventEditForm() {
                 className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}
               >
                 <Form.Group className="text-center">
-                  {event_image ? (
-                    <>
                       <figure>
                         <Image
                           className={appStyles.Image}
@@ -156,18 +169,6 @@ function EventEditForm() {
                           Change the image
                         </Form.Label>
                       </div>
-                    </>
-                  ) : (
-                    <Form.Label
-                      className="d-flex justify-content-center"
-                      htmlFor="image-upload"
-                    >
-                      <Asset
-                        src={Upload}
-                        message="Click or tap to upload an image"
-                      />
-                    </Form.Label>
-                  )}
 
                   <Form.Group controlId="image-upload" className="d-none">
                     <Form.Control
