@@ -28,8 +28,18 @@ function EventEditForm() {
     const handleMount = async () => {
       try {
         const { data } = await axiosReq.get(`/events/${id}/`);
-        const { title, content, image, is_owner } = data;
-        is_owner ? setPostData({ title, content, image }) : history.push("/");
+        const { title, description, event_image, event_date, is_owner } = data;
+        if (is_owner) {
+          const formattedDate = event_date ? new Date(event_date).toISOString().slice(0, 16) : '';
+          setPostData({ 
+            title: title || "", 
+            description: description || "", 
+            event_image: event_image || "", 
+            event_date: formattedDate 
+          });
+        } else {
+          history.push("/");
+        }
       } catch (err) {
         console.log(err);
       }
