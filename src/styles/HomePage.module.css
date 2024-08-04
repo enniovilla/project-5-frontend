@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap");
+
+.logo {
+  font-family: "Amatic SC", sans-serif;
+  font-size: 100px;
+  font-weight: 500;
+  letter-spacing: 5px;
+}
+
+.font {
+    font-family: "Amatic SC", sans-serif;
+    letter-spacing: 5px;
+    font-size: 40px;
+    font-weight: 500;
+}
