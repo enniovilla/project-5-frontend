@@ -20,7 +20,7 @@ const Event = (props) => {
     id,
     owner,
     profile_id,
-    profile_image,
+    image,
     comments_count,
     favorite_id,
     attendance_id,
@@ -194,7 +194,7 @@ const Event = (props) => {
                 to={`/profiles/${profile_id}`}
                 className="d-flex align-items-center ms-2"
               >
-                <Avatar src={profile_image} height={55} />
+                <Avatar src={image} height={55} />
                 {owner}
               </Link>
             </div>

@@ -20,7 +20,7 @@ function EventPage() {
   const [event, setEvent] = useState({ results: [] });
 
   const currentUser = useCurrentUser();
-  const profile_image = currentUser?.profile_image;
+  const image = currentUser?.image;
   const [comments, setComments] = useState({ results: [] });
 
   useEffect(() => {
@@ -59,7 +59,7 @@ function EventPage() {
             {currentUser ? (
               <CommentCreateForm
                 profile_id={currentUser.profile_id}
-                profileImage={profile_image}
+                profileImage={image}
                 event={id}
                 setEvent={setEvent}
                 setComments={setComments}
@@ -96,7 +96,7 @@ function EventPage() {
             {currentUser ? (
               <CommentCreateForm
                 profile_id={currentUser.profile_id}
-                profileImage={profile_image}
+                profileImage={image}
                 event={id}
                 setEvent={setEvent}
                 setComments={setComments}
