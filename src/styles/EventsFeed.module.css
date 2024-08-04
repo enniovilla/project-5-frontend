@@ -2,7 +2,7 @@
   border-radius: 20px;
   color: #242a3d;
   padding-left: 40px;
-  margin-bottom: 16px;
+  margin: 16px 0;
 }
 
 .SearchIcon {
@@ -10,6 +10,7 @@
   font-size: 1.2rem;
   padding: 9px;
   padding-left: 15px;
+  margin: 16px 0;
 }
 
 .SearchIcon:hover {
