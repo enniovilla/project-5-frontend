@@ -29,9 +29,9 @@ const NavBar = () => {
     <>
       <NavLink
         className={`${styles.NavLink} mt-1 mb-1 mt-md-0 mb-md-0`}
-        to="/feed"
+        to="/events"
       >
-        <i class="fa-solid fa-bars-staggered fa-xl"></i>Feed
+        <i class="fa-solid fa-bars-staggered fa-xl"></i>Events
       </NavLink>
       <NavLink
         className={`${styles.NavLink} mt-1 mb-1 mt-md-0 mb-md-0`}
