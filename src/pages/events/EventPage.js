@@ -10,6 +10,9 @@ import appStyles from "../../App.module.css";
 import CommentCreateForm from "../comments/CommentCreateForm";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import Comment from "../comments/Comment";
+import InfiniteScroll from "react-infinite-scroll-component";
+import Asset from "../../components/Asset";
+import { fetchMoreData } from "../../utils/utils";
 
 function EventPage() {
   const { id } = useParams();
@@ -65,9 +68,20 @@ function EventPage() {
               "Comments"
             ) : null}
             {comments.results.length ? (
-              comments.results.map((comment) => (
-                <Comment key={comment.id} {...comment} />
-              ))
+              <InfiniteScroll
+                children={comments.results.map((comment) => (
+                  <Comment
+                    key={comment.id}
+                    {...comment}
+                    setEvent={setEvent}
+                    setComments={setComments}
+                  />
+                ))}
+                dataLength={comments.results.length}
+                loader={<Asset spinner />}
+                hasMore={!!comments.next}
+                next={() => fetchMoreData(comments, setComments)}
+              />
             ) : currentUser ? (
               <div className="text-center mt-3">
                 No comments yet. Be the first to comment!
