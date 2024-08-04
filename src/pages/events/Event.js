@@ -21,6 +21,7 @@ const Event = (props) => {
     title,
     description,
     event_image,
+    event_date,
     eventPage,
     setEvents,
   } = props;
@@ -180,7 +181,9 @@ const Event = (props) => {
             </Link>
           </div>
           <div className="d-flex align-items-center">
-            <i class="fa-solid fa-users fa-xl" />
+          <i class="fa-solid fa-calendar fa-xl" />
+            {event_date}
+            <i class="fa-solid fa-users fa-xl ml-3" />
             {attendance_count}
             <Link
               to={`/events/${id}`}
