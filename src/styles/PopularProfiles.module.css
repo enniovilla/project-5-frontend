@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap");
+
+.Header {
+  font-family: "Amatic SC", sans-serif;
+  font-size: 30px;
+  text-align: center;
+}
+
+.ProfilesContainer {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.ProfileItem {
+  flex: 1 1 auto;
+  padding: 8px;
+  text-align: center;
+}
