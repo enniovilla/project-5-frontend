@@ -60,6 +60,10 @@ const PopularEvents = () => {
                   <Card.Title>{event.title}</Card.Title>
                   <Card.Text>Hosted by {event.owner}</Card.Text>
                   <Card.Text>
+                    <i className="fa-solid fa-calendar-days fa-xl" />
+                    {event.event_date}
+                  </Card.Text>
+                  <Card.Text>
                     <i className="fa-solid fa-users fa-xl ml-3" />{" "}
                     {event.attendance_count}
                   </Card.Text>

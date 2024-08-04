@@ -14,7 +14,7 @@ import Asset from "../../components/Asset";
 import NoResults from "../../assets/no-results.png";
 import { fetchMoreData } from "../../utils/utils";
 import InfiniteScroll from "react-infinite-scroll-component";
-import PopularEvents from "../profiles/PopularEvents";
+import PopularEvents from "./PopularEvents";
 
 function EventsFeed({ message, filter = "" }) {
   const [events, setEvents] = useState({ results: [] });
