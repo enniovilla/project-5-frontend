@@ -2,10 +2,11 @@ import React from "react";
 import styles from "../../styles/Event.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { Card, Media, OverlayTrigger, Tooltip, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Avatar from "../../components/Avatar";
 import btnStyles from "../../styles/Button.module.css";
 import { axiosRes } from "../../api/axiosDefaults";
+import { MoreDropdown } from "../../components/MoreDropdown";
 
 const Event = (props) => {
   const {
@@ -26,6 +27,20 @@ const Event = (props) => {
 
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
+  const history = useHistory();
+
+  const handleEdit = () => {
+    history.push(`/events/${id}/edit`);
+  };
+
+  const handleDelete = async () => {
+    try {
+      await axiosRes.delete(`/events/${id}/`);
+      history.goBack();
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const handleFavorite = async () => {
     try {
@@ -34,7 +49,11 @@ const Event = (props) => {
         ...prevEvents,
         results: prevEvents.results.map((event) => {
           return event.id === id
-            ? { ...event, favorites_count: event.favorites_count + 1, favorite_id: data.id }
+            ? {
+                ...event,
+                favorites_count: event.favorites_count + 1,
+                favorite_id: data.id,
+              }
             : event;
         }),
       }));
@@ -50,7 +69,11 @@ const Event = (props) => {
         ...prevEvents,
         results: prevEvents.results.map((event) => {
           return event.id === id
-            ? { ...event, favorites_count: event.favorites_count - 1, favorite_id: null }
+            ? {
+                ...event,
+                favorites_count: event.favorites_count - 1,
+                favorite_id: null,
+              }
             : event;
         }),
       }));
@@ -66,7 +89,11 @@ const Event = (props) => {
         ...prevEvents,
         results: prevEvents.results.map((event) => {
           return event.id === id
-            ? { ...event, attendance_count: event.attendance_count + 1, attendance_id: data.id }
+            ? {
+                ...event,
+                attendance_count: event.attendance_count + 1,
+                attendance_id: data.id,
+              }
             : event;
         }),
       }));
@@ -82,7 +109,11 @@ const Event = (props) => {
         ...prevEvents,
         results: prevEvents.results.map((event) => {
           return event.id === id
-            ? { ...event, attendance_count: event.attendance_count - 1, attendance_id: null }
+            ? {
+                ...event,
+                attendance_count: event.attendance_count - 1,
+                attendance_id: null,
+              }
             : event;
         }),
       }));
@@ -95,16 +126,16 @@ const Event = (props) => {
     <Card className={styles.Event}>
       <Card.Body>
         <Media className="d-flex align-items-center justify-content-between">
-          <div className="d-flex flex-grow-1 justify-content-center pt-3">
+          <Link to={`/events/${id}`} className="d-flex flex-grow-1 justify-content-center pt-3">
             {title && <Card.Title className="text-center">{title}</Card.Title>}
-          </div>
-          <div className="ms-auto">
+          </Link>
+          <div className="ms-auto d-flex align-items-center">
             {is_owner ? (
               <OverlayTrigger
                 placement="top"
                 overlay={<Tooltip>You can't favorite your own event!</Tooltip>}
               >
-                <i className="fa-regular fa-star fa-xl" />
+                <i className="fa-regular fa-star" />
               </OverlayTrigger>
             ) : favorite_id ? (
               <span onClick={handleUnfavorite}>
@@ -124,7 +155,12 @@ const Event = (props) => {
                 <i className="fa-regular fa-star fa-xl" />
               </OverlayTrigger>
             )}
-            {is_owner && eventPage && "..."}
+            {is_owner && eventPage && (
+              <MoreDropdown
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+              />
+            )}
           </div>
         </Media>
       </Card.Body>
