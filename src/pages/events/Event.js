@@ -10,7 +10,6 @@ import {
   Modal,
 } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
-import Avatar from "../../components/Avatar";
 import btnStyles from "../../styles/Button.module.css";
 import { axiosRes } from "../../api/axiosDefaults";
 import { MoreDropdown } from "../../components/MoreDropdown";
@@ -20,7 +19,6 @@ const Event = (props) => {
     id,
     owner,
     profile_id,
-    image,
     comments_count,
     favorite_id,
     attendance_id,
@@ -47,8 +45,7 @@ const Event = (props) => {
     try {
       await axiosRes.delete(`/events/${id}/`);
       history.goBack();
-    } catch (err) {
-    }
+    } catch (err) {}
     setShowModal(false);
   };
 
@@ -67,8 +64,7 @@ const Event = (props) => {
             : event;
         }),
       }));
-    } catch (err) {
-    }
+    } catch (err) {}
   };
 
   const handleUnfavorite = async () => {
@@ -86,8 +82,7 @@ const Event = (props) => {
             : event;
         }),
       }));
-    } catch (err) {
-    }
+    } catch (err) {}
   };
 
   const handleAttend = async () => {
@@ -105,8 +100,7 @@ const Event = (props) => {
             : event;
         }),
       }));
-    } catch (err) {
-    }
+    } catch (err) {}
   };
 
   const handleUnattend = async () => {
@@ -124,8 +118,7 @@ const Event = (props) => {
             : event;
         }),
       }));
-    } catch (err) {
-    }
+    } catch (err) {}
   };
 
   return (
@@ -184,13 +177,12 @@ const Event = (props) => {
         <Card.Body>
           <div className="d-flex justify-content-between align-items-center">
             <div className="d-flex align-items-center">
-              Hosted by
+              Hosted by{" "}
               <Link
                 to={`/profiles/${profile_id}`}
                 className="d-flex align-items-center ms-2"
               >
-                <Avatar src={image} height={55} />
-                {owner}
+                 {owner}
               </Link>
             </div>
             <div className="d-flex align-items-center">
