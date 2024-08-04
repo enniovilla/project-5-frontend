@@ -53,7 +53,7 @@ const NavBar = () => {
       </NavLink>
       <NavLink
         className={`${styles.NavLink} mt-1 mb-1 mt-md-0 mb-md-0`}
-        to="/favorites"
+        to="/my_favorites"
       >
         <i class="fa-solid fa-star fa-xl"></i>Favorites
       </NavLink>
