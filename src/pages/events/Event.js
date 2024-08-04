@@ -169,7 +169,7 @@ const Event = (props) => {
               ) : (
                 <OverlayTrigger
                   placement="top"
-                  overlay={<Tooltip>Log in to favorite events!</Tooltip>}
+                  overlay={<Tooltip>Sign in to favorite events!</Tooltip>}
                 >
                   <i className="fa-regular fa-star fa-xl" />
                 </OverlayTrigger>
