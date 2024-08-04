@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../../styles/Event.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { Card, Media, OverlayTrigger, Tooltip, Button } from "react-bootstrap";
+import {
+  Card,
+  Media,
+  OverlayTrigger,
+  Tooltip,
+  Button,
+  Modal,
+} from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import Avatar from "../../components/Avatar";
 import btnStyles from "../../styles/Button.module.css";
@@ -30,6 +37,8 @@ const Event = (props) => {
   const is_owner = currentUser?.username === owner;
   const history = useHistory();
 
+  const [showModal, setShowModal] = useState(false);
+
   const handleEdit = () => {
     history.push(`/events/${id}/edit`);
   };
@@ -41,6 +50,7 @@ const Event = (props) => {
     } catch (err) {
       console.log(err);
     }
+    setShowModal(false);
   };
 
   const handleFavorite = async () => {
@@ -124,122 +134,149 @@ const Event = (props) => {
   };
 
   return (
-    <Card className={styles.Event}>
-      <Card.Body>
-        <Media className="d-flex align-items-center justify-content-between">
-          <Link to={`/events/${id}`} className="d-flex flex-grow-1 justify-content-center pt-3">
-            {title && <Card.Title className="text-center">{title}</Card.Title>}
-          </Link>
-          <div className="ms-auto d-flex align-items-center">
-            {is_owner ? (
-              <OverlayTrigger
-                placement="top"
-                overlay={<Tooltip>You can't favorite your own event!</Tooltip>}
-              >
-                <i className="fa-regular fa-star" />
-              </OverlayTrigger>
-            ) : favorite_id ? (
-              <span onClick={handleUnfavorite}>
-                <i className={`fa-solid fa-star fa-xl ${styles.Star}`} />
-              </span>
-            ) : currentUser ? (
-              <span onClick={handleFavorite}>
-                <i
-                  className={`fa-regular fa-star fa-xl ${styles.StarOutline}`}
-                />
-              </span>
-            ) : (
-              <OverlayTrigger
-                placement="top"
-                overlay={<Tooltip>Log in to favorite events!</Tooltip>}
-              >
-                <i className="fa-regular fa-star fa-xl" />
-              </OverlayTrigger>
-            )}
-            {is_owner && eventPage && (
-              <MoreDropdown
-                handleEdit={handleEdit}
-                handleDelete={handleDelete}
-              />
-            )}
-          </div>
-        </Media>
-      </Card.Body>
-      <Link to={`/events/${id}`}>
-        <Card.Img src={event_image} alt={title} />
-      </Link>
-      <Card.Body>
-        <div className="d-flex justify-content-between align-items-center">
-          <div className="d-flex align-items-center">
-            Hosted by
-            <Link
-              to={`/profiles/${profile_id}`}
-              className="d-flex align-items-center ms-2"
-            >
-              <Avatar src={profile_image} height={55} />
-              {owner}
-            </Link>
-          </div>
-          <div className="d-flex align-items-center">
-          <i class="fa-solid fa-calendar-days fa-xl" />
-            {event_date}
-            <i class="fa-solid fa-users fa-xl ml-3" />
-            {attendance_count}
+    <>
+      <Card className={styles.Event}>
+        <Card.Body>
+          <Media className="d-flex align-items-center justify-content-between">
             <Link
               to={`/events/${id}`}
-              className="d-flex align-items-center ml-3"
+              className="d-flex flex-grow-1 justify-content-center pt-3"
             >
-              <i className="fa-regular fa-comment fa-xl me-2" />
-              {comments_count}
+              {title && (
+                <Card.Title className="text-center">{title}</Card.Title>
+              )}
             </Link>
+            <div className="ms-auto d-flex align-items-center">
+              {is_owner ? (
+                <OverlayTrigger
+                  placement="top"
+                  overlay={
+                    <Tooltip>You can't favorite your own event!</Tooltip>
+                  }
+                >
+                  <i className="fa-regular fa-star" />
+                </OverlayTrigger>
+              ) : favorite_id ? (
+                <span onClick={handleUnfavorite}>
+                  <i className={`fa-solid fa-star fa-xl ${styles.Star}`} />
+                </span>
+              ) : currentUser ? (
+                <span onClick={handleFavorite}>
+                  <i
+                    className={`fa-regular fa-star fa-xl ${styles.StarOutline}`}
+                  />
+                </span>
+              ) : (
+                <OverlayTrigger
+                  placement="top"
+                  overlay={<Tooltip>Log in to favorite events!</Tooltip>}
+                >
+                  <i className="fa-regular fa-star fa-xl" />
+                </OverlayTrigger>
+              )}
+              {is_owner && eventPage && (
+                <MoreDropdown
+                  handleEdit={handleEdit}
+                  handleDelete={() => setShowModal(true)}
+                />
+              )}
+            </div>
+          </Media>
+        </Card.Body>
+        <Link to={`/events/${id}`}>
+          <Card.Img src={event_image} alt={title} />
+        </Link>
+        <Card.Body>
+          <div className="d-flex justify-content-between align-items-center">
+            <div className="d-flex align-items-center">
+              Hosted by
+              <Link
+                to={`/profiles/${profile_id}`}
+                className="d-flex align-items-center ms-2"
+              >
+                <Avatar src={profile_image} height={55} />
+                {owner}
+              </Link>
+            </div>
+            <div className="d-flex align-items-center">
+              <i className="fa-solid fa-calendar-days fa-xl" />
+              {event_date}
+              <i className="fa-solid fa-users fa-xl ml-3" />
+              {attendance_count}
+              <Link
+                to={`/events/${id}`}
+                className="d-flex align-items-center ml-3"
+              >
+                <i className="fa-regular fa-comment fa-xl me-2" />
+                {comments_count}
+              </Link>
+            </div>
           </div>
-        </div>
-        <div className="mt-3 p-3 text-center">
-          {description && <Card.Text>{description}</Card.Text>}
-        </div>
-        {is_owner ? (
-          <OverlayTrigger
-            placement="top"
-            overlay={
-              <Tooltip>You can't mark attendance to your own event!</Tooltip>
-            }
-          >
-            <Button
-              disabled
-              className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Color} ${btnStyles.AttendingDeactivated}`}
+          <div className="mt-3 p-3 text-center">
+            {description && <Card.Text>{description}</Card.Text>}
+          </div>
+          {is_owner ? (
+            <OverlayTrigger
+              placement="top"
+              overlay={
+                <Tooltip>You can't mark attendance to your own event!</Tooltip>
+              }
             >
-              Attend
-            </Button>
-          </OverlayTrigger>
-        ) : attendance_id ? (
-          <Button
-            onClick={handleUnattend}
-            className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Color} ${btnStyles.Attending}`}
-          >
-            Attending
-          </Button>
-        ) : currentUser ? (
-          <Button
-            onClick={handleAttend}
-            className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Color}`}
-          >
-            Attend
-          </Button>
-        ) : (
-          <OverlayTrigger
-            placement="top"
-            overlay={<Tooltip>Sign in to attend events!</Tooltip>}
-          >
+              <Button
+                disabled
+                className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Color} ${btnStyles.AttendingDeactivated}`}
+              >
+                Attend
+              </Button>
+            </OverlayTrigger>
+          ) : attendance_id ? (
             <Button
-              disabled
+              onClick={handleUnattend}
+              className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Color} ${btnStyles.Attending}`}
+            >
+              Attending
+            </Button>
+          ) : currentUser ? (
+            <Button
+              onClick={handleAttend}
               className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Color}`}
             >
               Attend
             </Button>
-          </OverlayTrigger>
-        )}
-      </Card.Body>
-    </Card>
+          ) : (
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>Sign in to attend events!</Tooltip>}
+            >
+              <Button
+                disabled
+                className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Color}`}
+              >
+                Attend
+              </Button>
+            </OverlayTrigger>
+          )}
+        </Card.Body>
+      </Card>
+
+      <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Delete</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to delete this event? This action cannot be
+          undone.
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={handleDelete}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 };
 
