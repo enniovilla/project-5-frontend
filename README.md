@@ -142,7 +142,7 @@ This is a multi-page website. On each page we have:
 
 On the home page the user can see a welcome message and the navigation bar.
 
-![Zen Oasis Spa home page](documentation/images/home_signout.png)
+![home page](documentation/images/home_signout.png)
 
 [Back to top](<#content>)
 
