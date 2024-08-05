@@ -22,6 +22,7 @@ The User Stories you can see here → [GitHub Project](https://github.com/users/
     * [Features](#features)
     * [Future Features](#future-features)
 * [Technologies Used](#technologies-used)
+    * [Installed packages, libraries and components](#installed-packages-libraries-and-components)
 * [Deployment, Fork and Clone](#deployment-fork-and-clone)
     * [Deployment](#deployment)
     * [Fork](#how-to-fork)
@@ -291,7 +292,6 @@ This project is so complex and large that it can be improved by more than 100%, 
 - HTML5 to create the website structure.
 - CSS3 to style the website.
 - JavaScript to create the interactions on the website.
-- [React-Bootstrap](https://react-bootstrap.netlify.app/) to give responsiveness and style to the project.
 - [Git](https://git-scm.com/) for version control.
 - [GitPod](https://www.gitpod.io/) as IDE to create the website.
 - [GitHub](https://github.com/) to store files for the website.
@@ -303,6 +303,31 @@ This project is so complex and large that it can be improved by more than 100%, 
 - [PostgreSQL](https://www.postgresql.org/) through Code Institute databases.
 - [Heroku](https://www.heroku.com/) to deploy this project.
 - [Cloudinary](https://cloudinary.com/) to store the images uploaded on the website.
+
+## Installed packages, libraries and components
+
+- **React**:
+    - The primary JavaScript framework for developing the user interface.
+
+- **React-Bootstrap**:
+    - A library that provides pre-styled React components based on Bootstrap, allowing for quicker and more consistent UI development.
+
+- **Node**:
+    - A package manager used for installing project dependencies.
+
+- **React Router**:
+    - Manages the routing for the React application. It ensures the UI stays in sync with the URL and only renders components required by the current URL path.
+
+- **Axios library**:
+    - Facilitates the React app in making HTTP requests to the API.
+
+- **React Infinite Scroll**:
+    - Utilized on list pages to enable infinite scrolling instead of traditional pagination.
+
+- **jwtDecode library**:
+    - Prevents unnecessary network requests whenever an unauthenticated user interacts with the app.
+    - Stores the refresh token's timestamp for the logged-in user in the browser using localStorage.
+    - Checks for the existence of this timestamp and only attempts to refresh the access token if it is present.
 
 [Back to top](<#content>)
 
