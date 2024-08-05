@@ -29,10 +29,8 @@ The User Stories you can see here → [GitHub Project](https://github.com/users/
 * [Testing](#testing)
 * [Bugs](#bugs)
     * [Known Bugs](#known-bugs)
-    * [Fixed Bugs](#fixed-bugs)
 * [Credits](#credits)
 * [Content](#content)
-* [Media](#media)
 * [Acknowledgments](#acknowledgments)
 
 ## User Experience (UX)
@@ -89,28 +87,19 @@ Figma was the software I opted to create the wireframes. I created wireframes fo
 <summary>Wireframes</summary>
 <br><br>
 Home page<br>
-<img src="documentation/images/index.png">
+<img src="documentation/images/home_figma.png">
 <br><br>
-Discover Zen Oasis page - This page I ended up merging with the index page because of the redundant content.<br>
-<img src="documentation/images/discover.png">
+Events Feed<br>
+<img src="documentation/images/feed_figma.png">
 <br><br>
-Treatments/Services page<br>
-<img src="documentation/images/treatments_services.png">
+Create Event<br>
+<img src="documentation/images/create_figma.png">
 <br><br>
-Booking page<br>
-<img src="documentation/images/booking.png">
+Profile Page<br>
+<img src="documentation/images/profile_figma.png">
 <br><br>
-Contact page<br>
-<img src="documentation/images/contact.png">
-<br><br>
-Sign In page<br>
-<img src="documentation/images/sign_in.png">
-<br><br>
-Sign Up page<br>
-<img src="documentation/images/sign_up.png">
-<br><br>
-My Bookings page<br>
-<img src="documentation/images/my_bookings.png">
+Sign In/Up<br>
+<img src="documentation/images/sign_figma.png"><br>
 </details>
 <br>
 
