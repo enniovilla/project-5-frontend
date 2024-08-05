@@ -35,7 +35,7 @@ function App() {
             render={() => <EventCreateForm />}
           />
           <Route exact path="/events/:id" render={() => <EventPage />} />
-          <Route exact path="/events" render={() => <EventsFeed />} />
+          <Route exact path="/events" render={() => <EventsFeed message="No results found. Adjust the search keyword." />} />
           <Route
             exact
             path="/my_events"
