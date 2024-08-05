@@ -11,13 +11,14 @@ import {
 } from "../contexts/CurrentUserContext";
 import axios from "axios";
 import useClickOutsideToggle from "../hooks/useClickOutsideToggle";
+import Avatar from "./Avatar";
 
 const NavBar = () => {
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
 
   const { expanded, setExpanded, ref } = useClickOutsideToggle();
-  
+
   const [showModal, setShowModal] = useState(false);
 
   const handleSignOut = async () => {
@@ -25,8 +26,7 @@ const NavBar = () => {
       await axios.post("dj-rest-auth/logout/");
       setCurrentUser(null);
       setShowModal(false);
-    } catch (err) {
-    }
+    } catch (err) {}
   };
 
   const handleShowModal = () => setShowModal(true);
@@ -68,7 +68,7 @@ const NavBar = () => {
         className={`${styles.NavLink} mt-1 mb-1 mt-md-0 mb-md-0`}
         to={`/profiles/${currentUser?.profile_id}`}
       >
-        <i class="fa-solid fa-user fa-xl"></i>{currentUser?.username}'s Profile
+        <Avatar src={currentUser?.profile_image} text="Profile" height={40} />
       </NavLink>
       <Nav.Link
         className={`${styles.NavLink} mt-1 mb-1 mt-md-0 mb-md-0`}
